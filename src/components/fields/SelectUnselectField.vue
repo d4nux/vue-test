@@ -1,5 +1,5 @@
 <template>
-    
+    <div class="select-container">
         <select
             :name="field.id"
             :disabled="field.disabled ?? null"
@@ -13,7 +13,20 @@
                 {{ option.label }}
             </option>
         </select>
-    
+        <select
+            :name="field.id"
+            :disabled="field.disabled ?? null"
+            @change="updateData"
+        >
+            <option
+                v-for="option in field.options"
+                :key="option.id"
+                :value="option.id"
+            >
+                {{ option.label }}
+            </option>
+        </select>
+    </div>
 </template>
 
 <script setup>
@@ -37,10 +50,26 @@ const updateData = (event) => {
 </script>
 
 <style lang="css" scoped>
+.select-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* Espacio entre los select */
+}
+
 select {
     background: black;
     border-width: 1px;
     padding: 10px;
-    width: 100%;
+    height: 100px;
+    /* Quitar la flecha del select */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+option{
+    background: black;
+    color: white;
+    width: 50%;
 }
 </style>

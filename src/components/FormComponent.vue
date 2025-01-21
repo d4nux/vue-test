@@ -130,9 +130,5 @@ input, select, textarea {
     display: flex;
     align-items: center;
 }
-.form-field select {
-    display: flex;
-    flex-direction: column;
-    width: 70%;
-}
+
 </style>
