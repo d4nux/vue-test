@@ -1,31 +1,37 @@
 <template>
     <div class="select-container">
-        <select
-            :name="field.id"
-            :disabled="field.disabled ?? null"
-            @change="updateData"
-        >
-            <option
-                v-for="option in field.options"
-                :key="option.id"
-                :value="option.id"
+        <div class="campos">
+            <label>Available</label>
+            <select multiple
+                :name="field.id"
+                :disabled="field.disabled ?? null"
+                @change="updateData"
             >
-                {{ option.label }}
-            </option>
-        </select>
-        <select
-            :name="field.id"
-            :disabled="field.disabled ?? null"
-            @change="updateData"
-        >
-            <option
-                v-for="option in field.options"
-                :key="option.id"
-                :value="option.id"
+                <option
+                    v-for="option in field.options"
+                    :key="option.id"
+                    :value="option.id"
+                >
+                    {{ option.label }}
+                </option>
+            </select>
+        </div>
+        <div class="campos">
+            <label>Available</label>
+            <select multiple
+                :name="field.id"
+                :disabled="field.disabled ?? null"
+                @change="updateData"
             >
-                {{ option.label }}
-            </option>
-        </select>
+                <option
+                    v-for="option in field.options"
+                    :key="option.id"
+                    :value="option.id"
+                >
+                    {{ option.label }}
+                </option>
+            </select>
+        </div>
     </div>
 </template>
 
@@ -50,26 +56,26 @@ const updateData = (event) => {
 </script>
 
 <style lang="css" scoped>
-.select-container {
-    display: flex;
-    flex-direction: row;
-    gap: 10px; /* Espacio entre los select */
-}
+    .select-container {
+        display: flex;
+        flex-direction: row;
+        gap: 10px; /* Espacio entre los select */
+        width: 100%;
+    }
+    .campos {
+        flex: 1;
+        margin-bottom: 10px;
+    }
 
-select {
-    background: black;
-    border-width: 1px;
-    padding: 10px;
-    height: 100px;
-    /* Quitar la flecha del select */
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-}
-
-option{
-    background: black;
-    color: white;
-    width: 50%;
-}
+    select {
+        background: black;
+        border-width: 1px;
+        padding: 10px;
+        height: 100px;
+        width: 100%; /* Ampliar el tamaño de los select */
+        /* Quitar la flecha del select */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
 </style>
