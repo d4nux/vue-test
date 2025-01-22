@@ -57,7 +57,7 @@ const updateFormData = (idAndValue) => {
         ...formData,
         [id]: value,
     };
-    
+
     console.log(idAndValue);
 
     emit('update', {

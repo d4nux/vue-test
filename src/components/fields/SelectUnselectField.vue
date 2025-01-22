@@ -82,10 +82,8 @@ const updateData = () => {
 };
 
 const getDisabledOptionsValues = () => {
-    return disabledOptions.value.map(option => option.id);
+    return { options: disabledOptions.value.map(option => option.id) };
 };
-
-// Ejemplo de uso de la función
 
 </script>
 
