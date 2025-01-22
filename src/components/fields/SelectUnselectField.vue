@@ -1,14 +1,14 @@
 <template>
     <div class="select-container">
         <div class="campos">
-            <label>Available</label>
+            <label>{{ availableLabel }}</label>
             <select multiple
                 :name="field.id"
                 :disabled="field.disabled ?? null"
-                @change="updateData"
+                @change="moveToDisabled"
             >
                 <option
-                    v-for="option in field.options"
+                    v-for="option in availableOptions"
                     :key="option.id"
                     :value="option.id"
                 >
@@ -17,14 +17,14 @@
             </select>
         </div>
         <div class="campos">
-            <label>Available</label>
+            <label>{{ disabledLabel }}</label>
             <select multiple
                 :name="field.id"
                 :disabled="field.disabled ?? null"
-                @change="updateData"
+                @change="moveToAvailable"
             >
                 <option
-                    v-for="option in field.options"
+                    v-for="option in disabledOptions"
                     :key="option.id"
                     :value="option.id"
                 >
@@ -36,6 +36,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import fieldMixin from '../FieldMixin';
 const emit = defineEmits(['update']);
 const props = defineProps({
@@ -52,6 +53,30 @@ let { handleChange, debounce } = fieldMixin.setup(props, { emit });
 const updateData = (event) => {
     debounce(handleChange, 50)(event);
     console.log(event.target.value);
+};
+
+const availableOptions = ref(props.field.options);
+const disabledOptions = ref([]);
+const availableLabel = ref('Available Options');
+const disabledLabel = ref('Disabled Options');
+
+const moveToDisabled = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
+    disabledOptions.value.push(...availableOptions.value.filter(option => selectedOptions.includes(option.id)));
+    availableOptions.value = availableOptions.value.filter(option => !selectedOptions.includes(option.id));
+    updateLabels();
+};
+
+const moveToAvailable = (event) => {
+    const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
+    availableOptions.value.push(...disabledOptions.value.filter(option => selectedOptions.includes(option.id)));
+    disabledOptions.value = disabledOptions.value.filter(option => !selectedOptions.includes(option.id));
+    updateLabels();
+};
+
+const updateLabels = () => {
+    availableLabel.value = availableOptions.value.length ? 'Available Options' : 'Disabled Options';
+    disabledLabel.value = disabledOptions.value.length ? 'Disabled Options' : 'Available Options';
 };
 </script>
 
