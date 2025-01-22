@@ -50,10 +50,11 @@ const props = defineProps({
     },
 });
 let { handleChange, debounce } = fieldMixin.setup(props, { emit });
-const updateData = (event) => {
+
+/* const updateData = (event) => {
     debounce(handleChange, 50)(event);
     console.log(event.target.value);
-};
+}; */
 
 const availableOptions = ref(props.field.options);
 const disabledOptions = ref([]);
@@ -64,20 +65,28 @@ const moveToDisabled = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
     disabledOptions.value.push(...availableOptions.value.filter(option => selectedOptions.includes(option.id)));
     availableOptions.value = availableOptions.value.filter(option => !selectedOptions.includes(option.id));
-    updateLabels();
+    updateData(event);
 };
 
 const moveToAvailable = (event) => {
     const selectedOptions = Array.from(event.target.selectedOptions, option => option.value);
     availableOptions.value.push(...disabledOptions.value.filter(option => selectedOptions.includes(option.id)));
     disabledOptions.value = disabledOptions.value.filter(option => !selectedOptions.includes(option.id));
-    updateLabels();
+    updateData(event);
 };
 
-const updateLabels = () => {
+const updateData = () => {
     availableLabel.value = availableOptions.value.length ? 'Available Options' : 'Disabled Options';
     disabledLabel.value = disabledOptions.value.length ? 'Disabled Options' : 'Available Options';
+    emit('update', getDisabledOptionsValues());
 };
+
+const getDisabledOptionsValues = () => {
+    return disabledOptions.value.map(option => option.id);
+};
+
+// Ejemplo de uso de la función
+
 </script>
 
 <style lang="css" scoped>
