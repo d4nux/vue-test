@@ -1,11 +1,10 @@
-<template>  
+<template>
     <div class="dynamic-form">
         <form @submit.prevent="onSubmit" class="form-group">
             <div v-for="(field) in fieldDefinitions" :key="field.id" class="form-field">
                 <label>{{ field.label }}</label>
                 <component :is="getComponentName(field)" :field="field"
-                    :modelValue="modelValue ? modelValue[field.id] : ''" 
-                    @update="updateFormData"
+                    :modelValue="modelValue ? modelValue[field.id] : ''" @update="updateFormData"
                     :ref="el => setFieldRef(field, el)" />
             </div>
             <div class="button-container">
@@ -13,7 +12,7 @@
             </div>
 
         </form>
-        <label id="result-label">Result:</label><br/>
+        <label id="result-label">Result:</label><br />
         <textarea id="result" rows="10" cols="50" disabled></textarea>
     </div>
 </template>
@@ -79,7 +78,7 @@ const onSubmit = (event) => {
 const getComponentName = (field) => {
 
     let compName = field.type.charAt(0).toUpperCase() + field.type.slice(1);
-    
+
     // Convert to CamelCase 
     compName = compName.replace(/[_-](\w)/g, (_, match) => match.toUpperCase());
 
@@ -111,7 +110,10 @@ label {
         text-align: left;
     }
 }
-input, select, textarea {
+
+input,
+select,
+textarea {
     padding: 5px;
     width: 100%;
     margin-bottom: 10px;
@@ -120,6 +122,7 @@ input, select, textarea {
 [disabled] {
     cursor: not-allowed;
 }
+
 .button-container {
     text-align: center;
     margin-bottom: 20px;
@@ -128,9 +131,9 @@ input, select, textarea {
         margin: auto;
     }
 }
+
 .form-field {
     display: flex;
     align-items: center;
 }
-
 </style>

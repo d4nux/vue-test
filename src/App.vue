@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <a href="https://vuejs.org/" target="_blank">
@@ -21,21 +20,21 @@ let fieldDefinitions = [
   {
     id: 'options',
     label: 'Options',
-      type: 'SelectUnselect',
-      options: [
-        {
-          id: '1',
-          label: 'Option 1',
-        },
-        {
-          id: '2',
-          label: 'Option 2',
-        },
-        {
-          id: '3',
-          label: 'Option 3',
-        },
-      ],
+    type: 'SelectUnselect',
+    options: [
+      {
+        id: '1',
+        label: 'Option 1',
+      },
+      {
+        id: '2',
+        label: 'Option 2',
+      },
+      {
+        id: '3',
+        label: 'Option 3',
+      },
+    ],
     required: true,
   },
 ];
@@ -47,9 +46,11 @@ let fieldDefinitions = [
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.vue:hover {
   filter: drop-shadow(0 0 2em #e3bd00aa);
 }

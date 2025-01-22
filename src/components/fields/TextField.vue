@@ -1,11 +1,6 @@
 <template>
-    <input
-        :type="field.type || 'text'"
-        :name="field.id"
-        :disabled="field.disabled ?? null"
-        :value="modelValue"
-        @keyup="updateData"
-    />
+    <input :type="field.type || 'text'" :name="field.id" :disabled="field.disabled ?? null" :value="modelValue"
+        @keyup="updateData" />
 </template>
 
 <script setup>
@@ -30,6 +25,7 @@ const updateData = (event) => {
 <style lang="css" scoped>
 input {
     background: black;
+    color: white;
     border-width: 1px;
     padding: 10px;
 }
