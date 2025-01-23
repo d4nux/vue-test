@@ -3,16 +3,16 @@
         <div class="campos">
             <label>{{ availableLabel }}</label>
             <select multiple :name="field.id" :disabled="field.disabled ?? null" @change="moveToDisabled">
-                <option v-for="option in availableOptions" :key="option.id" :value="option.id">
-                    {{ option.label }}
+                <option v-for="field in availableOptions" :key="field.id" :value="field.id">
+                    {{ field.label }}
                 </option>
             </select>
         </div>
         <div class="campos">
             <label>{{ disabledLabel }}</label>
             <select multiple :name="field.id" :disabled="field.disabled ?? null" @change="moveToAvailable">
-                <option v-for="option in disabledOptions" :key="field.id" :value="field.id">
-                    {{ option.label }}
+                <option v-for="field in disabledOptions" :key="field.id" :value="field.id">
+                    {{ field.label }}
                 </option>
             </select>
         </div>
@@ -41,7 +41,7 @@ const availableLabel = ref('Available Options');
 const disabledLabel = ref('Disabled Options');
 
 const moveToDisabled = (event) => {
-    const selectedOptions = Array.from(event.target.selectedOptions, field => option.value);
+    const selectedOptions = Array.from(event.target.selectedOptions, field => field.value);
     disabledOptions.value.push(...availableOptions.value.filter(field => selectedOptions.includes(field.id)));
     availableOptions.value = availableOptions.value.filter(field => !selectedOptions.includes(field.id));
     updateData(event);
@@ -59,11 +59,6 @@ const updateData = (event) => {
     availableLabel.value = availableOptions.value.length ? 'Available Options' : 'Disabled Options';
     disabledLabel.value = disabledOptions.value.length ? 'Disabled Options' : 'Available Options';
     debounce(handleChange, 50)(event);
-    //emit('update', getDisabledOptionsValues());
-};
-
-const getDisabledOptionsValues = () => {
-    return { options: disabledOptions.value.map(option => option.id) };
 };
 
 </script>

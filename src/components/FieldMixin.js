@@ -22,7 +22,10 @@ export default {
                 }
                 // if multiple select
                 if (event.target.multiple) {
-                    value = event.target.selectedOptions;
+                    value = [];
+                    for (let item of event.target) {
+                        value.push(item.value);
+                    }
                 }
             } else {
                 // add to current value

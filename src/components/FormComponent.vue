@@ -57,7 +57,6 @@ const updateFormData = (idAndValue) => {
         [id]: value,
     };
 
-    console.log(idAndValue);
 
     emit('update', {
         value: toRaw(formData),
